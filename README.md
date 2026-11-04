@@ -84,7 +84,7 @@ Proyecto-Final-Antenas-UNIS-2026/
  ┣ 04_Capturas_UISP_y_Cartografia/
  ┃ ┣ Red_FWA_Aldea_El_Milagro.kml                 # Archivo cartográfico para Google Earth Pro (Entregable 5)
  ┃ ┣ fig_mapa_general_red.png                     # Mapa general Backhaul 11.94 km + Cobertura 360°
- ┃ ┣ fig_resumen_tower1.png                       # Jerarquía de dispositivos en Tower 1
+ ┃ ┣ fig_mapa_sectores_aldea.png                       # Jerarquía de dispositivos en Tower 1
  ┃ ┣ fig_perfil_backhaul_ptp.png                  # Perfil topográfico y Fresnel del Backhaul PtP
  ┃ ┗ fig_perfil_s1a.png ... fig_perfil_s3b.png    # Perfiles de elevación de las 6 estaciones CPE
  ┣ 05_Datasheets_Oficiales/
