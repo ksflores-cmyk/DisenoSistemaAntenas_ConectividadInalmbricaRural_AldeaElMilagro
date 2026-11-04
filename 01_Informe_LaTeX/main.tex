@@ -1,0 +1,553 @@
+\documentclass[10pt,letterpaper]{article}
+
+% ============================================================================
+% PAQUETES Y CONFIGURACION GENERAL 
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage{geometry}
+\geometry{
+    letterpaper,
+    top=1.8cm,
+    bottom=1.8cm,
+    left=2.0cm,
+    right=2.0cm,
+    headheight=14pt
+}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\setstretch{1.05}
+\setlist{nosep, leftmargin=1.5em}
+
+\titlespacing*{\section}{0pt}{1.8ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{1.3ex plus 0.3ex minus 0.2ex}{0.5ex plus 0.1ex}
+
+\definecolor{unisblue}{RGB}{0,46,93}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=unisblue,
+    citecolor=unisblue,
+    urlcolor=unisblue,
+    pdftitle={Proyecto Final Antenas y Propagacion 2026 - UNIS},
+    pdfauthor={Kevin Flores, Ana Guzman, Maria Cospin}
+}
+
+\captionsetup{
+    font=footnotesize,
+    labelfont={bf,color=unisblue},
+    skip=3pt
+}
+
+% Encabezados y pies de pagina sin traslape
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\scriptsize\scshape Universidad del Istmo $\cdot$ Antenas y Propagación 2026}
+\fancyhead[R]{\scriptsize\scshape Conectividad Rural -- Aldea El Milagro, Escuintla}
+\fancyfoot[L]{\scriptsize K. Flores (17068), A. Guzmán (16863), M. Cospín (16846)}
+\fancyfoot[R]{\scriptsize Página \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+
+% ============================================================================
+% 1. PORTADA 
+% ============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{0.1cm}
+
+    \includegraphics[width=0.32\textwidth,height=3.2cm,keepaspectratio]{escudo.png} \par
+    \vspace{0.3cm}
+    
+    {\scshape\LARGE Universidad del Istmo de Guatemala \par}
+    \vspace{0.2cm}
+    {\scshape\Large Facultad de Ingeniería \par}
+    \vspace{0.15cm}
+    {\scshape\large Ingeniería en Electrónica y Telecomunicaciones \par}
+    
+    \vspace{1.2cm}
+    \rule{\linewidth}{0.5mm} \\[0.3cm]
+    {\LARGE \bfseries Diseño Integral de un Sistema de Antenas y Propagación para Conectividad Inalámbrica Rural en la Aldea El Milagro, Masagua, Escuintla \par}
+    \vspace{0.15cm}
+    \rule{\linewidth}{0.5mm} \\[0.8cm]
+    
+    {\large \textbf{Proyecto Final del Curso -- Modalidad A: Simulación Radioeléctrica} \par}
+    \vspace{0.2cm}
+    {\normalsize Curso: Antenas y Propagación \par}
+    \vspace{0.1cm}
+    {\normalsize Catedrático: Ing. Victor Hugo Alvarado \par}
+    
+    \vfill
+    
+    \begin{flushright}
+        {\normalsize \textbf{Autores:} \par}
+        {\normalsize Kevin Flores -- Carné: 17068 \par}
+        {\normalsize Ana Isabel Guzmán -- Carné: 16863 \par}
+        {\normalsize María Isabel Cospín -- Carné: 16846 \par}
+        \vspace{0.2cm}
+        {\normalsize \textbf{Fecha:} 5 de noviembre de 2026 \par}
+    \end{flushright}
+    
+    \vspace{0.4cm}
+    {\scriptsize \textit{Diseño verificado mediante UISP Design Center, GNU Octave y la Tabla Nacional de Atribución de Frecuencias (TNAF SIT-DSI-622-2020) para una población de referencia de 300 habitantes.} \par}
+\end{titlepage}
+
+% ============================================================================
+% INDICE GENERAL 
+% ============================================================================
+\pagenumbering{roman}
+{
+\small
+\setlength{\parskip}{0.5pt}
+\tableofcontents
+}
+\newpage
+\pagenumbering{arabic}
+
+% ============================================================================
+% SECCION 1: RESUMEN EJECUTIVO Y OBJETIVOS
+% ============================================================================
+\section{Resumen Ejecutivo y Objetivos del Proyecto}
+
+Se presenta el diseño integral, modelado electromagnético, simulación topográfica y evaluación financiera de un sistema de Acceso Fijo Inalámbrico (\textit{Fixed Wireless Access}, FWA) para conectar a la \textbf{Aldea El Milagro (Sector Rural Cuyuta Norte)}, municipio de Masagua, departamento de Escuintla, Guatemala, atendiendo una población de referencia de \textbf{300 habitantes} agrupados en \textbf{60 viviendas} ($\sim 5\text{ hab./hogar}$).
+
+
+La solución seleccionada opera en la banda de $5\text{ GHz}$ (SHF), atribuida a los servicios \textbf{FIJO y MÓVIL en categoría Primaria (P)} según la Tabla Nacional de Atribución de Frecuencias (TNAF, Resolución SIT-DSI-622-2020). El transporte (\textit{Backhaul}) se resuelve mediante un radioenlace Punto a Punto (PtP) de \textbf{11.94 km} desde el nodo de fibra óptica en Escuintla (\texttt{14.322000, -90.782000}, $430\text{ m s.n.m.}$) hasta la torre central en la aldea (\texttt{Tower 1}: \texttt{14.216939, -90.803970}, $165\text{ m s.n.m.}$), utilizando transceptores \texttt{Ubiquiti airFiber 5XHD} y reflectores parabólicos \texttt{AF-5G30-S45} de $30\text{ dBi}$ ($\text{HPBW} = 5.8^\circ$, polarización Dual-Slant $\pm 45^\circ$), logrando una potencia recibida de $-46\text{ dBm}$ y una capacidad de \textbf{909 Mbps} en un canal de $80\text{ MHz}$.
+
+En \texttt{Tower 1} ($30\text{ m}$ AGL) se despliega una estación base Punto-Multipunto (PtMP) trisectorial ($3 \times 120^\circ = 360^\circ$) con radios \texttt{LTU-Rocket} y antenas \texttt{airMAX Titanium AM-V5G-Ti} ($19\text{ dBi}$ a $120^\circ$, $\text{HPBW}_V = 4.0^\circ$, $F/B = 30\text{ dB}$). Las viviendas emplean CPEs escalonados según su distancia: paneles impresos \texttt{LTU-Pro} ($24\text{ dBi}$, $\text{HPBW} = 14^\circ$) hasta $1.30\text{ km}$ y reflectores \texttt{LTU-LR} ($26\text{ dBi}$, $\text{HPBW} = 11^\circ$) entre $1.30\text{ y }2.30\text{ km}$, más routers interiores \texttt{airCube ISP} en $2.4\text{ GHz}$ ($4\text{ dBi}$). El diseño garantiza un despeje $\ge 235\%$ de la primera zona de Fresnel ($r_1$), señales de $-41\text{ a }-47\text{ dBm}$, capacidad de acceso agregada de \textbf{1,410 Mbps} frente a una demanda pico de \textbf{554.4 Mbps}, un CAPEX total de \textbf{Q 335,000.00} (\textbf{Q 5,583.33/hogar}) y un OPEX de \textbf{Q 6,900.00/mes} (\textbf{Q 115.00/hogar/mes}).
+
+\textbf{Objetivos del diseño:}
+\begin{enumerate}
+    \item Dimensionar la demanda de tráfico en hora pico para 300 habitantes (60 viviendas, 240 terminales) y establecer metas verificables de cobertura ($100\%$), nivel de señal ($\ge -60\text{ dBm}$), despeje de Fresnel ($\ge 60\%$ de $r_1$) y disponibilidad ($\ge 99.99\%$).
+    \item Contrastar dos arquitecturas inalámbricas extremo a extremo (FWA Terrestre PtP+PtMP frente a Satélite LEO+Wi-Fi Mesh), justificando la elección en términos de directividad, latencia y sostenibilidad OPEX.
+    \item Fundamentar físicamente las cinco familias de antenas del sistema mediante apertura efectiva ($A_e$), óptica de reflectores parabólicos, síntesis de agrupaciones colineales verticales ($AF$) y adaptación de impedancia ($\Gamma, \text{VSWR}$).
+    \item Validar analítica y computacionalmente los perfiles topográficos, presupuestos de enlace (\textit{Downlink} y \textit{Uplink}), capacidad útil, dos escenarios de sensibilidad y el presupuesto detallado CAPEX/OPEX en Quetzales (Q).
+\end{enumerate}
+
+
+\newpage
+% ============================================================================
+% SECCION 2: CARACTERIZACION DE LA ALDEA Y DIMENSIONAMIENTO DE DEMANDA
+% ============================================================================
+\section{Caracterización de la Comunidad Rural y Dimensionamiento de Demanda}
+
+La \textbf{Aldea El Milagro} se ubica en la planicie aluvial del municipio de Masagua, Escuintla. Académicamente se asume la ausencia de cobertura fija o móvil de banda ancha en la aldea y la disponibilidad de un Punto de Presencia (PoP) de fibra óptica en el norte de la cabecera departamental de Escuintla, a $11.94\text{ km}$ de distancia. El perfil topográfico descendente entre Escuintla ($430\text{ m s.n.m.}$) y Masagua ($165\text{ m s.n.m.}$) es cóncavo, permitiendo línea de vista (LOS) limpia en el enlace troncal, mientras que la planicie local permite cubrir el $100\%$ de las casas con tres sectores de $120^\circ$.
+
+A partir de los $300\text{ habitantes}$ y una media de $5\text{ hab./hogar}$, se obtienen $N_{\text{hogares}} = \frac{300}{5} = \mathbf{60\text{ viviendas}}$ ($20\text{ hogares por sector}$) y $240\text{ terminales Wi-Fi}$ ($4\text{ por hogar}$). Se define un plan residencial de \textbf{25 Mbps Downlink (DL) / 10 Mbps Uplink (UL)} con factor de concurrencia en hora pico de $FC_{\text{DL}} = 0.25$ (contención 4:1) y $FC_{\text{UL}} = 0.20$ (contención 5:1), más un $12\%$ de sobrecarga de protocolo (\textit{overhead} TCP/IP y tramas MAC TDD):
+
+\begin{align}
+    D_{\text{agregada, DL}} &= 60 \times 25\text{ Mbps} \times 0.25 \times 1.12 = 420.0\text{ Mbps} \\
+    D_{\text{agregada, UL}} &= 60 \times 10\text{ Mbps} \times 0.20 \times 1.12 = 134.4\text{ Mbps} \\
+    D_{\text{total TDD (Hora Pico)}} &= 420.0 + 134.4 = \mathbf{554.4\text{ Mbps}} \implies D_{\text{sector}} = \frac{554.4\text{ Mbps}}{3} = \mathbf{184.8\text{ Mbps/sector}}
+\end{align}
+
+\begin{table}[H]
+\centering
+\caption{Georreferenciación de nodos principales, dimensionamiento de demanda y metas de ingeniería.}
+\label{tab:sitios_demanda}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{Nodo / Parámetro} & \textbf{PoP Fibra (Tx PtP)} & \textbf{Torre Aldea (\texttt{Tower 1})} & \textbf{Métrica de Demanda} & \textbf{Valor de Diseño} & \textbf{Meta de Cumplimiento} \\
+\midrule
+Municipio / Depto. & Escuintla, Escuintla & Masagua, Escuintla & Población / Hogares & $300\text{ hab.} / 60\text{ viv.}$ & $100\%$ hogares cubiertos ($20/\text{sector}$) \\
+Coordenadas (WGS84) & \texttt{14.322000, -90.782000} & \texttt{14.216939, -90.803970} & Plan por vivienda & $25\text{ DL} / 10\text{ UL Mbps}$ & Concurrencia pico $FC = 0.25 / 0.20$ \\
+Altitud terreno / Torre & $430\text{ m s.n.m.} / 30\text{ m}$ & $165\text{ m s.n.m.} / 30\text{ m}$ & Demanda pico agregada & $554.4\text{ Mbps TDD}$ & $420.0\text{ DL} + 134.4\text{ UL}$ (incl. $12\%$ OH) \\
+Cota total radiación & $460.0\text{ m s.n.m.}$ & $195.0\text{ m s.n.m.}$ & Señal / Margen 10X & $P_{rx} \ge -60\text{ dBm}$ & Margen $M_{10\text{X}} \ge 13\text{ dB}$; Fresnel $\ge 60\%$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\newpage
+% ============================================================================
+% SECCION 3: COMPARACION DE ALTERNATIVAS Y ARQUITECTURA ELEGIDA
+% ============================================================================
+\section{Comparación de Dos Alternativas y Arquitectura Extremo a Extremo}
+
+Se contrastan dos opciones tecnológicas completas para resolver el transporte y el acceso local:
+\begin{itemize}
+    \item \textbf{Alternativa A (Elegida -- Backhaul Terrestre PtP + Acceso PtMP Sectorizado + CPE Directivo + Wi-Fi Interior):} Transporte PtP en $5.2\text{ GHz}$ (\texttt{AF-5XHD} + platos \texttt{AF-5G30-S45} de $30\text{ dBi}$) a $11.94\text{ km}$; distribución PtMP en $5.8\text{ GHz}$ (\texttt{3x LTU-Rocket} + paneles \texttt{AM-V5G-Ti} de $19\text{ dBi}$, $120^\circ$); recepción exterior en techos con \texttt{LTU-Pro} ($24\text{ dBi}$) y \texttt{LTU-LR} ($26\text{ dBi}$), bajando por cable Cat6 STP al router interior \texttt{airCube ISP} ($2.4\text{ GHz}$, $4\text{ dBi}$).
+    \item \textbf{Alternativa B (Descartada -- Backhaul Satelital LEO + Red Wi-Fi Mesh Exterior):} Terminales satelitales LEO (banda Ku/Ka, $12\text{--}14\text{ GHz}$) en el centro de la aldea con distribución mediante repetidores omnidireccionales \textit{Wi-Fi Mesh} (\texttt{UniFi UAP-AC-M}, $4\text{ dBi}$) en postes para conectar dispositivos dentro de las viviendas.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Comparación técnica y económica entre las dos arquitecturas evaluadas (Criterio 02).}
+\label{tab:comparacion_arquitecturas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Criterio Técnico} & \textbf{Alternativa A: Backhaul PtP + PtMP Directivo + Wi-Fi Hogar} & \textbf{Alternativa B: Backhaul Satelital LEO + Wi-Fi Mesh Exterior} & \textbf{Ventaja} \\
+\midrule
+Capacidad de Transporte & \textbf{909 Mbps} dedicados en $80\text{ MHz}$; cubre los $554.4\text{ Mbps}$ pico con $39\%$ libre. & $150\text{--}220\text{ Mbps}$ DL y $25\text{ Mbps}$ UL por antena; requiere 4 terminales LEO. & \textbf{Alt. A} \\
+Control RF y Directividad & Ganancias altas ($30\text{ dBi}$ PtP; $19\text{ dBi}$ AP; $24\text{--}26\text{ dBi}$ CPE); aisla ruido. & Omnidireccional ($3\text{--}4\text{ dBi}$) en acceso; irradia y capta interferencia en $360^\circ$. & \textbf{Alt. A} \\
+Penetración y Saltos & 1 salto de acceso con LOS exterior; entra a la casa por cable Ethernet ($0\text{ dB}$ muro). & Pierde $\sim 50\%$ de capacidad por salto Mesh y $12\text{--}20\text{ dB}$ al atravesar muros. & \textbf{Alt. A} \\
+Desempeño bajo Lluvia & Baja atenuación en $5\text{ GHz}$ ($4.88\text{ dB}$ a $95\text{ mm/h}$ en $11.94\text{ km}$); latencia $<4\text{ ms}$. & Severo \textit{rain fade} ($>12\text{ dB}$) en banda Ku/Ka durante tormentas en Escuintla. & \textbf{Alt. A} \\
+Sostenibilidad OPEX & \textbf{Q 6,900.00/mes} (1 enlace fibra mayorista en PoP) $\Rightarrow$ \textbf{Q 115.00/hogar/mes}. & $>\text{Q } 15,600.00/\text{mes}$ por 4 planes LEO empresariales prioritarios y postes. & \textbf{Alt. A} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.60\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.2cm,keepaspectratio]{fig_mapa_general_red.png}
+        \caption{Enlace \textit{Backhaul} ($11.94\text{ km}$) y cobertura $360^\circ$ en la aldea.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.37\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.2cm,keepaspectratio]{fig_mapa_sectores_aldea.png}
+        \caption{Jerarquía de equipos en \texttt{Tower 1}.}
+    \end{subfigure}
+    \caption{Arquitectura extremo a extremo simulada en \textit{UISP Design Center} desde \texttt{PoP-Escuintla} hasta las 6 estaciones representativas.}
+    \label{fig:arquitectura_uisp}
+\end{figure}
+
+
+\newpage
+% ============================================================================
+% SECCION 4: INGENIERIA DE ANTENAS Y PATRONES DE RADIACION
+% ============================================================================
+\section{Diseño del Sistema de Antenas y Análisis de Patrones de Radiación}
+
+\subsection{Principio Físico, Apertura Efectiva ($A_e$), Reflectores y Agrupaciones (Semanas 2, 3, 5, 9 y 11)}
+De acuerdo con la ecuación de transmisión de Friis (Semana 3), la ganancia directiva lineal $g = 10^{G_{\text{dBi}}/10}$ se relaciona con la longitud de onda $\lambda = c/f$ y la \textbf{apertura efectiva} $A_e = \eta_{\text{ap}} A_{\text{física}}$ mediante:
+\begin{equation}
+    G = \eta_{\text{rad}} D_0 = \frac{4\pi A_e}{\lambda^2} \implies A_e = \frac{\lambda^2}{4\pi} 10^{\left(\frac{G_{\text{dBi}}}{10}\right)}, \qquad \text{HPBW}_{[\text{grados}]} \approx \frac{70\lambda}{D}, \qquad D_0 \approx \frac{41,253}{\Theta_{1d}\Theta_{2d}}
+    \label{eq:antenas_base}
+\end{equation}
+
+\begin{enumerate}
+    \item \textbf{Reflector Parabólico \texttt{AF-5G30-S45} ($G = 30\text{ dBi}$, $D = 0.65\text{ m}$, Semana 11):} Transforma la onda esférica emitida por el alimentador situado en el foco geométrico en un frente de onda plano en fase coherente. A $f = 5.80\text{ GHz}$ ($\lambda = 5.172\text{ cm}$, $A_{\text{física}} = \pi(0.325)^2 = 0.3318\text{ m}^2$), su apertura efectiva es $A_e = \frac{(0.05172)^2}{4\pi}\times 1000 = \mathbf{0.2129\text{ m}^2}$ ($2,129\text{ cm}^2$), arrojando una eficiencia de apertura real $\eta_{\text{ap}} = \frac{0.2129}{0.3318} = \mathbf{64.16\%}$ (a $5.20\text{ GHz}$, $\lambda = 5.769\text{ cm}$ y $A_e = 0.2648\text{ m}^2$). Su ancho de haz teórico es $\text{HPBW} \approx \frac{70 \times 0.05172}{0.65} = 5.57^\circ$, coincidiendo con los $5.8^\circ$ del datasheet.
+    \item \textbf{Antena Sectorial \texttt{airMAX Titanium AM-V5G-Ti} ($G = 19\text{ dBi}$ a $120^\circ$, Semanas 5 y 9):} Para generar un patrón asimétrico ancho en azimut ($\text{HPBW}_H = 120^\circ$) y muy estrecho en elevación ($\text{HPBW}_V = 4.0^\circ$), apila verticalmente $N = 12$ parches microstrip impresos ($L \approx \frac{c}{2f_r\sqrt{\varepsilon_{\text{eff}}}} - 2\Delta L$) espaciados a $d = 0.72\lambda = 3.72\text{ cm}$. Por multiplicación de patrones, el corte vertical está gobernado por el \textbf{Factor de Arreglo ($AF$)}:
+    \begin{equation}
+        E_{\text{total}}(\theta) = E_{\text{parche}}(\theta) \times \left| \frac{\sin\left(\frac{N\psi}{2}\right)}{N\sin\left(\frac{\psi}{2}\right)} \right|, \qquad \psi = \frac{2\pi}{\lambda} d (\sin\theta - \sin\theta_{\text{tilt}})
+        \label{eq:factor_arreglo}
+    \end{equation}
+    Por la relación de Krauss, $D_0 \approx \frac{41,253}{120^\circ \times 4.0^\circ} = 85.94$ ($19.34\text{ dBi}$); descontando $-0.34\text{ dB}$ de pérdidas óhmicas en la red de alimentación ($\eta_{\text{rad}} = 92.5\%$), se obtiene $G = 19.0\text{ dBi}$ y $A_e = 169.1\text{ cm}^2$.
+    \item \textbf{CPE Panel Impreso \texttt{LTU-Pro} ($24\text{ dBi}$) vs Reflector \texttt{LTU-LR} ($26\text{ dBi}$):} A $5.80\text{ GHz}$, el arreglo planar integrado del \texttt{LTU-Pro} ($\varnothing 317\text{ mm}$) presenta $A_e = 534.8\text{ cm}^2$, $\text{HPBW} = 14^\circ$, $\text{SLL} = -10\text{ dBi}$ y $F/B = 27\text{ dB}$. Al pasar al reflector parabólico \texttt{LTU-LR} ($512.5 \times 385.8\text{ mm}$) para los hogares lejanos ($2.20\text{--}2.30\text{ km}$), la apertura efectiva crece un $+58.5\%$ hasta $A_e = 847.5\text{ cm}^2$, sumando $+2.0\text{ dB}$ de ganancia y comprimiendo el haz a $11.0^\circ$.
+    \item \textbf{Dipolos Interiores \texttt{airCube ISP} ($2.437\text{ GHz}$, $\lambda = 12.31\text{ cm}$):} Arreglo $2\times 2\text{ MIMO}$ de dipolos internos con patrón omnidireccional horizontal ($360^\circ$), $\text{HPBW}_V = 55^\circ$, $G = 4.0\text{ dBi}$ y $A_e = 30.3\text{ cm}^2$.
+    \item \textbf{Adaptación de Impedancia y Polarización:} Con $\text{VSWR} \le 1.5:1$ en \texttt{AM-V5G-Ti}, el coeficiente de reflexión es $|\Gamma| = \frac{1.5-1}{1.5+1} = 0.20$ ($|S_{11}| = -14.0\text{ dB}$), por lo que la pérdida por desadaptación es apenas $-10\log_{10}(1-|\Gamma|^2) = 0.18\text{ dB}$ (y en \texttt{AF-5G30-S45}, $|S_{11}| \le -21\text{ dB}$). Al coincidir la polarización entre extremos ($\pm 45^\circ$ en PtP y Dual Lineal H/V en PtMP), el factor de pérdida por polarización es $\text{PLF} = 1$ ($0\text{ dB}$).
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Inventario técnico completo de las 5 familias de radiadores del sistema (Criterios 03 y 04).}
+\label{tab:inventario_antenas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llllccccccc@{}}
+\toprule
+\textbf{ID} & \textbf{Modelo (Fabricante)} & \textbf{Ubicación / Función} & \textbf{Tipo Físico} & \textbf{Cant.} & \textbf{$f_c$ (GHz)} & \textbf{$G$ (dBi)} & \textbf{$A_e$ ($\text{cm}^2$)} & \textbf{HPBW H/V} & \textbf{$F/B$ (dB)} & \textbf{Pol. / VSWR} \\
+\midrule
+ANT-01 & \texttt{AF-5G30-S45} (Ubiquiti) & \texttt{PoP} y \texttt{Tower 1} (Backhaul PtP) & Reflector parabólico $\varnothing 650\text{ mm}$ & 2 & 5.20 / 5.80 & 30.0 & 2,129.0 & $5.8^\circ / 5.8^\circ$ & 30.0 & Slant $\pm 45^\circ$ / $1.6:1$ \\
+ANT-02 & \texttt{AM-V5G-Ti} (Ubiquiti) & \texttt{Tower 1} (Sectores S1, S2, S3) & Arreglo colineal $N=12$ parches & 3 & 5.745--5.845 & 19.0 & 169.1 & $120^\circ / 4.0^\circ$ & 30.0 & Dual H/V / $1.5:1$ \\
+ANT-03 & \texttt{LTU-Pro} (Ubiquiti) & Hogares cortos/medios ($\le 1.3\text{ km}$) & Panel planar integrado InnerFeed & 36 & 5.745--5.845 & 24.0 & 534.8 & $14.0^\circ / 14.0^\circ$ & 27.0 & Dual H/V / Integrada \\
+ANT-04 & \texttt{LTU-LR} (Ubiquiti) & Hogares borde ($1.3\text{--}2.3\text{ km}$) & Reflector parabólico InnerFeed & 24 & 5.745--5.845 & 26.0 & 847.5 & $11.0^\circ / 11.0^\circ$ & 28.0 & Dual H/V / Integrada \\
+ANT-05 & \texttt{airCube ISP} (Ubiquiti) & Interior de las 60 viviendas & Dipolos internos $2\times 2$ MIMO & 60 & 2.437 & 4.0 & 30.3 & $360^\circ / 55.0^\circ$ & N/A & Lineal V / $1.8:1$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.54\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=4.8cm,keepaspectratio]{fig_octave_cortes_hv_familias.png}
+        \caption{Cortes H (Azimut) y V (Elevación) de las 4 familias directivas.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=4.8cm,keepaspectratio]{fig_octave_apertura_vs_hpbw.png}
+        \caption{Ganancia vs Apertura Efectiva ($A_e$) y $\text{HPBW}$.}
+    \end{subfigure}
+    \caption{Modelado numérico en \textit{GNU Octave} de los cortes de radiación H/V y relación física de apertura a $5.8\text{ GHz}$.}
+    \label{fig:octave_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.52\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.0cm,keepaspectratio]{fig_octave_factor_arreglo_sectorial.png}
+        \caption{Síntesis del arreglo vertical $N=12$ (\texttt{AM-V5G-Ti}).}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.0cm,keepaspectratio]{fig_octave_cobertura_azimutal_360.png}
+        \caption{Cobertura azimutal $360^\circ$ y ubicación de los 6 CPEs.}
+    \end{subfigure}
+    \caption{Compresión del haz vertical mediante factor de arreglo ($N=12, d=0.72\lambda$) y superposición polar trisectorial.}
+    \label{fig:octave_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.8cm,keepaspectratio]{fig_datasheet_af5g30.png}
+        \caption{Patrones polares y $|S_{11}|$ oficiales de \texttt{AF-5G30-S45} (Pág. 9).}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=5.8cm,keepaspectratio]{fig_datasheet_amv5gti.png}
+        \caption{Patrones polares H/V oficiales de \texttt{AM-V5G-Ti} (Pág. 9).}
+    \end{subfigure}
+    \caption{Diagramas de radiación polares y pérdidas de retorno extraídos de los datasheets oficiales de Ubiquiti Networks.}
+    \label{fig:datasheets}
+\end{figure}
+
+
+\newpage
+% ============================================================================
+% SECCION 5: PLAN DE FRECUENCIAS Y REGULACION ESPECTRAL (TNAF)
+% ============================================================================
+\section{Plan de Frecuencias, Sectorización y Regulación en Guatemala (TNAF)}
+
+Guatemala pertenece a la Región 2 de la UIT-R y regula su espectro mediante la SIT bajo la \textbf{TNAF (Resolución SIT-DSI-622-2020)}. Todos los canales seleccionados operan en bandas atribuidas a los servicios \textbf{FIJO (Primario -- P)} y \textbf{MÓVIL (Primario -- P)}. Entre el receptor del \textit{Backhaul} en \texttt{Tower 1} ($5200\text{ MHz}$) y el primer sector PtMP ($5745\text{ MHz}$) existe una banda de guarda de \textbf{485 MHz}, eliminando cualquier interferencia o desensebilización en la torre.
+
+\begin{table}[H]
+\centering
+\caption{Plan de asignación de frecuencias, canalización, azimut, tilt y alineación con la TNAF de Guatemala.}
+\label{tab:plan_frecuencias}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llllccccl@{}}
+\toprule
+\textbf{Tramo / Sector} & \textbf{Radio + Antena} & \textbf{Sub-banda TNAF} & \textbf{Atribución SIT} & \textbf{$f_c$ (MHz)} & \textbf{BW (MHz)} & \textbf{Azimut / Tilt} & \textbf{$P_{tx}$ (dBm)} & \textbf{Aislamiento y Mitigación RF} \\
+\midrule
+Backhaul PtP & \texttt{AF-5XHD} + \texttt{AF-5G30-S45} & $5150\text{--}5250\text{ MHz}$ & FIJO (P), MÓVIL (P) & 5200 & 80 ($5160\text{--}5240$) & $191^\circ\text{S} / -1.22^\circ$ & 22.0 & Guarda de $485\text{ MHz}$ respecto a APs; $F/B=30\text{ dB}$ \\
+Sector S1 (Norte) & \texttt{LTU-Rocket} + \texttt{AM-V5G-Ti} & $5725\text{--}5850\text{ MHz}$ & FIJO (P), MÓVIL (P) & 5745 & 40 ($5725\text{--}5765$) & $0^\circ\text{N} / -1.50^\circ$ & 22.0 & Guarda de $10\text{ MHz}$ con S2; blindaje Titanium \\
+Sector S2 (Sureste) & \texttt{LTU-Rocket} + \texttt{AM-V5G-Ti} & $5725\text{--}5850\text{ MHz}$ & FIJO (P), MÓVIL (P) & 5795 & 40 ($5775\text{--}5815$) & $120^\circ\text{E} / -1.20^\circ$ & 22.0 & Canal central no solapado; separación $120^\circ$ \\
+Sector S3 (Suroeste) & \texttt{LTU-Rocket} + \texttt{AM-V5G-Ti} & $5725\text{--}5850\text{ MHz}$ & FIJO (P), MÓVIL (P) & 5845 & 40 ($5825\text{--}5865$) & $240^\circ\text{W} / -1.50^\circ$ & 22.0 & Guarda de $10\text{ MHz}$ con S2; chasis $F/B=30\text{ dB}$ \\
+Wi-Fi Interior (60x) & \texttt{airCube ISP (ACB-ISP)} & $2400\text{--}2483.5\text{ MHz}$ & FIJO (P), MÓVIL (P) & 2412/37/62 & 20 (Can. 1, 6, 11) & $360^\circ / 0.00^\circ$ & 20.0 & Reúso espacial atenuado por muros y distancia \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+
+% ============================================================================
+% SECCION 6: PROPAGACION, TERRENO Y ZONA DE FRESNEL
+% ============================================================================
+\section{Modelado de Propagación, Terreno y Primera Zona de Fresnel}
+
+La pérdida en espacio libre ($\text{FSPL}$), el radio de la primera zona de Fresnel ($r_1$) y la protuberancia por curvatura terrestre efectiva ($h_b$, con $k = 4/3 \Rightarrow R_e \approx 8,500\text{ km}$) se calculan mediante:
+\begin{equation}
+    \text{FSPL}_{[\text{dB}]} = 32.44 + 20\log_{10}\left(d_{[\text{km}]}\right) + 20\log_{10}\left(f_{[\text{MHz}]}\right), \qquad r_1\text{ [m]} = 17.32 \sqrt{\frac{d_1 \cdot d_2}{f_{[\text{GHz}]} \cdot d}}, \qquad h_b\text{ [m]} = \frac{d_1 \cdot d_2}{17}
+    \label{eq:propagacion}
+\end{equation}
+
+\begin{itemize}
+    \item \textbf{Verificación en el Backhaul PtP ($d = 11.94\text{ km}$, $f = 5.20\text{ GHz}$):} En el punto medio ($d_1 = d_2 = 5.97\text{ km}$), $r_{1,\text{max}} = 13.12\text{ m}$ ($0.6\,r_1 = 7.87\text{ m}$) y $h_{b,\text{max}} = 2.10\text{ m}$. El rayo viaja a $54.0\text{ m}$ sobre el suelo ($39.0\text{ m}$ descontando $15\text{ m}$ de follaje), logrando un despeje del \textbf{297\% de $r_1$}.
+    \item \textbf{Superación de la loma crítica en \texttt{S1-B} ($d = 2.21\text{ km}$, $f = 5.745\text{ GHz}$):} En $d_1 = 1.70\text{ km}$ ($d_2 = 0.51\text{ km}$) existe una elevación de $192.0\text{ m s.n.m.}$ donde $r_1 = 4.53\text{ m}$ ($0.6\,r_1 = 2.72\text{ m}$) y $h_b = 0.05\text{ m}$. Al elevar la estación \texttt{S1-B} a \textbf{25 m} ($205.0\text{ m s.n.m.}$) con \texttt{Tower 1} a $30\text{ m}$ ($195.0\text{ m s.n.m.}$), el rayo cruza a $202.69\text{ m s.n.m.}$, logrando un despeje libre de $\Delta h = 10.64\text{ m}$ (\textbf{235\% de $r_1$}).
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth,height=4.4cm,keepaspectratio]{fig_perfil_backhaul_ptp.png}
+    \caption{Perfil topográfico e indicador de desempeño del enlace \textit{Backhaul} PtP de $11.94\text{ km}$ ($-46\text{ dBm}$, $909\text{ Mbps}$).}
+    \label{fig:perfil_bh}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s1a.png}
+        \caption{\texttt{S1-A}: $997.27\text{ m}$, $-41\text{ dBm}$, $h=10\text{ m}$.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s1b.png}
+        \caption{\texttt{S1-B}: $2.21\text{ km}$, $-46\text{ dBm}$, $h=25\text{ m}$ (libra loma).}
+    \end{subfigure}
+
+    \vspace{0.15cm}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s2a.png}
+        \caption{\texttt{S2-A}: $962.01\text{ m}$ (más corto), $-41\text{ dBm}$, $h=10\text{ m}$.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s2b.png}
+        \caption{\texttt{S2-B}: $2.30\text{ km}$ (peor caso), $-47\text{ dBm}$, $h=12\text{ m}$.}
+    \end{subfigure}
+
+    \vspace{0.15cm}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s3a.png}
+        \caption{\texttt{S3-A}: $1.04\text{ km}$, $-42\text{ dBm}$, $h=10\text{ m}$.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=3.6cm,keepaspectratio]{fig_perfil_s3b.png}
+        \caption{\texttt{S3-B}: $2.20\text{ km}$, $-46\text{ dBm}$, $h=12\text{ m}$.}
+    \end{subfigure}
+    \caption{Perfiles topográficos, elipsoides de Fresnel, azimuts, tilts y capacidades de las 6 estaciones CPE en los Sectores S1, S2 y S3.}
+    \label{fig:perfiles_6cpes}
+\end{figure}
+
+\newpage
+% ============================================================================
+% SECCION 7: PRESUPUESTO DE ENLACE (LINK BUDGET) EN DOWNLINK Y UPLINK
+% ============================================================================
+\section{Presupuestos de Enlace (\textit{Link Budget}) en Downlink y Uplink}
+
+El presupuesto de enlace para cada trayecto representativo se evalúa mediante:
+\begin{equation}
+    \text{EIRP}_{[\text{dBm}]} = P_{tx} - L_{tx} + G_{tx}, \qquad P_{rx\,[\text{dBm}]} = \text{EIRP} - \text{FSPL} - L_{\text{adic}} + G_{rx} - L_{rx}, \qquad M_{[\text{dB}]} = P_{rx} - S_{rx,\text{min}}
+\end{equation}
+Se contabilizan $L_{\text{jumper}} = 0.5\text{ dB}$ en los radios con chicotes RP-SMA (\texttt{AF-5XHD} y \texttt{LTU-Rocket}), $L_{\text{CPE}} = 0.0\text{ dB}$ en los CPEs con radio integrado \textit{InnerFeed} (\texttt{LTU-Pro}/\texttt{LTU-LR}), y pérdidas adicionales de gases atmosféricos y caída fuera de eje de $L_{\text{adic}} = 0.6\text{ dB}$ en PtP y $1.0\text{ dB}$ en PtMP. En sentido inverso (\textit{Uplink}), aunque el CPE emite mayor PIRE que el AP ($\text{EIRP}_{\text{UL}} = 46\text{--}48\text{ dBm}$ vs $\text{EIRP}_{\text{DL}} = 40.5\text{ dBm}$), la reciprocidad de ganancias ($G_{tx}+G_{rx}$) produce exactamente el mismo nivel $P_{rx}$ en ambos sentidos:
+\begin{itemize}
+    \item \textbf{Backhaul PtP ($11.94\text{ km}$, $5200\text{ MHz}$):} $\text{FSPL} = 128.30\text{ dB}$, $\text{EIRP} = 22.0 - 0.5 + 30.0 = 51.5\text{ dBm} \implies P_{rx} = 51.5 - 128.30 - 0.6 + 30.0 - 0.5 = \mathbf{-47.90\text{ dBm}}$ (UISP: $\mathbf{-46.0\text{ dBm}}$). Con umbral $S_{rx\,(10\text{X})} = -61.0\text{ dBm}$ ($S_{rx\,(1\text{X})} = -87.0\text{ dBm}$), el margen en $10\text{X}$ es $\mathbf{+13.10\text{ dB}}$ (y $\mathbf{+39.10\text{ dB}}$ antes de perder enlace).
+    \item \textbf{Enlace Cercano \texttt{S2-A} ($0.962\text{ km}$, $5795\text{ MHz}$, \texttt{LTU-Pro} $24\text{ dBi}$):} $\text{FSPL} = 107.36\text{ dB}$. En DL ($\text{EIRP}=40.5\text{ dBm}$) y UL ($\text{EIRP}=46.0\text{ dBm}$), $P_{rx} = \mathbf{-43.86\text{ dBm}}$ (UISP: $\mathbf{-41.0\text{ dBm}}$). Con $S_{rx\,(10\text{X})} = -64.0\text{ dBm}$, $M_{10\text{X}} = \mathbf{+20.14\text{ dB}}$.
+    \item \textbf{Peor Caso \texttt{S2-B} ($2.300\text{ km}$, $5795\text{ MHz}$, \texttt{LTU-LR} $26\text{ dBi}$):} $\text{FSPL} = 114.93\text{ dB}$. En DL ($\text{EIRP}=40.5\text{ dBm}$) y UL ($\text{EIRP}=48.0\text{ dBm}$), $P_{rx} = \mathbf{-49.43\text{ dBm}}$ (UISP: $\mathbf{-47.0\text{ dBm}}$), logrando $M_{10\text{X}} = \mathbf{+14.57\text{ dB}}$ y $M_{1\text{X}} = \mathbf{+40.57\text{ dB}}$.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Resumen consolidado de propagación, zona de Fresnel y Link Budget (Downlink y Uplink) en todos los enlaces.}
+\label{tab:link_budget_completo}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccccccccl@{}}
+\toprule
+\textbf{ID Enlace} & \textbf{$d$ (km)} & \textbf{$f$ (MHz)} & \textbf{$r_1$ (m)} & \textbf{Desp. $r_1$} & \textbf{$P_{tx}$ (dBm)} & \textbf{$G_{tx}/G_{rx}$} & \textbf{EIRP DL/UL} & \textbf{FSPL (dB)} & \textbf{$L_{\text{tot}}$ (dB)} & \textbf{$P_{rx}$ Calc.} & \textbf{$P_{rx}$ UISP} & \textbf{$S_{rx}$ 10X} & \textbf{Margen $M_{10\text{X}}$} & \textbf{Capacidad} \\
+\midrule
+BH-PtP (DL/UL) & 11.940 & 5200 & 13.12 & $297\%$ & 22.0 & $30.0 / 30.0$ & $51.5 / 51.5$ & 128.30 & 1.60 & $-47.90\text{ dBm}$ & $-46.0\text{ dBm}$ & $-61.0\text{ dBm}$ & $+13.10\text{ dB}$ & $909\text{ Mbps}$ \\
+ACC-S1A (DL/UL) & 0.997 & 5745 & 3.60 & $514\%$ & 22.0 & $19.0 / 24.0$ & $40.5 / 46.0$ & 107.60 & 1.50 & $-44.10\text{ dBm}$ & $-41.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+19.90\text{ dB}$ & $470\text{ Mbps}$ \\
+ACC-S1B (DL/UL) & 2.210 & 5745 & 4.53 & $235\%$ & 22.0 & $19.0 / 26.0$ & $40.5 / 48.0$ & 114.52 & 1.50 & $-49.02\text{ dBm}$ & $-46.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+14.98\text{ dB}$ & $470\text{ Mbps}$ \\
+ACC-S2A (DL/UL) & 0.962 & 5795 & 3.45 & $325\%$ & 22.0 & $19.0 / 24.0$ & $40.5 / 46.0$ & 107.36 & 1.50 & $-43.86\text{ dBm}$ & $-41.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+20.14\text{ dB}$ & $470\text{ Mbps}$ \\
+ACC-S2B (DL/UL) & 2.300 & 5795 & 5.46 & $363\%$ & 22.0 & $19.0 / 26.0$ & $40.5 / 48.0$ & 114.93 & 1.50 & $-49.43\text{ dBm}$ & $-47.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+14.57\text{ dB}$ & $470\text{ Mbps}$ \\
+ACC-S3A (DL/UL) & 1.040 & 5845 & 3.66 & $475\%$ & 22.0 & $19.0 / 24.0$ & $40.5 / 46.0$ & 108.11 & 1.50 & $-44.61\text{ dBm}$ & $-42.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+19.39\text{ dB}$ & $470\text{ Mbps}$ \\
+ACC-S3B (DL/UL) & 2.200 & 5845 & 5.31 & $305\%$ & 22.0 & $19.0 / 26.0$ & $40.5 / 48.0$ & 114.63 & 1.50 & $-49.13\text{ dBm}$ & $-46.0\text{ dBm}$ & $-64.0\text{ dBm}$ & $+14.87\text{ dB}$ & $470\text{ Mbps}$ \\
+WIFI-Hogar (Int.) & 0.012 & 2437 & 0.28 & $100\%$ & 20.0 & $4.0 / 0.0$ & $24.0 / 18.0$ & 61.78 & 10.00 & $-47.78\text{ dBm}$ & N/A & $-75.0\text{ dBm}$ & $+27.22\text{ dB}$ & $150\text{ Mbps}$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% ============================================================================
+% SECCION 8: CAPACIDAD, VALIDACION Y ESCENARIOS DE SENSIBILIDAD
+% ============================================================================
+\section{Evaluación de Capacidad, Contraste con UISP y Análisis de Sensibilidad}
+
+\begin{enumerate}
+    \item \textbf{Capacidad Extremo a Extremo y Cuello de Botella:} Los 3 sectores PtMP entregan $3 \times 470 = \mathbf{1,410\text{ Mbps}}$ brutos ($1,198.5\text{ Mbps}$ netos descontando $15\%$ de gestión TDD), por lo que la demanda pico por sector ($184.8\text{ Mbps}$) representa solo el \textbf{46.3\%} de su capacidad útil. El \textbf{cuello de botella del sistema es el enlace Backhaul PtP de 909 Mbps}; sin embargo, frente a los $554.4\text{ Mbps}$ de demanda agregada comunitaria, el Backhaul trabaja al \textbf{61.0\% de utilización}, dejando $354.6\text{ Mbps}$ de holgura.
+    \item \textbf{Contraste Analítico vs Simulador:} La diferencia de $1.9\text{ a }3.1\text{ dB}$ entre $P_{rx}$ calculada y UISP se debe a que el simulador asume $L_{\text{jumper}} = L_{\text{adic}} = 0\text{ dB}$ en condición ideal \textit{Noise Free / No Rain} y suma la ganancia de combinación MIMO. Si se anulan dichas pérdidas en la ecuación manual, la diferencia es $<0.9\text{ dB}$.
+    \item \textbf{Escenario de Sensibilidad 1 (Límite PIRE \texttt{Auto} + Lluvia Tropical UIT-R P.838 y Altura en \texttt{S1-B}):} Al activar \texttt{Auto} ($\text{EIRP} = 30\text{ dBm} \Rightarrow P_{tx} = 0\text{ dBm}$), la señal del Backhaul cae a $-68\text{ dBm}$ ($545\text{ Mbps}$). Bajo lluvia intensa de Escuintla ($R_{0.01} = 95\text{ mm/h}$, UIT-R P.838: $\gamma_R = 0.00175(95)^{1.308} = 0.676\text{ dB/km}$, pérdida en trayecto efectivo $A_{\text{lluvia}} = \mathbf{4.88\text{ dB}}$), el modo \texttt{Auto} cae a $-72.9\text{ dBm}$ ($\sim 360\text{ Mbps}$), incumpliendo la demanda pico. En cambio, con $P_{tx} = 22\text{ dBm}$, la señal bajo tormenta es de $-52.78\text{ dBm}$, manteniendo $+8.22\text{ dB}$ sobre el umbral $10\text{X}$ y sosteniendo los \textbf{909 Mbps}. Asimismo, reducir la altura del AP a $10\text{ m}$ en \texttt{S1-B} ocasionó obstrucción de Fresnel ($v = +0.56, L_{\text{dif}} = 11.4\text{ dB}$), degradando el enlace a $-76\text{ dBm}$ ($188\text{ Mbps}$), lo cual se corrigió elevando el AP a $30\text{ m}$ y el mástil de \texttt{S1-B} a $25\text{ m}$.
+    \item \textbf{Escenario de Sensibilidad 2 (+50\% Hogares y Plan 50/20 Mbps):} Con 90 hogares y planes duplicados, la demanda pico sube a \textbf{1,663.2 Mbps} ($554.4\text{ Mbps/sector}$), saturando los sectores de $40\text{ MHz}$ ($118\%$) y el Backhaul ($183\%$). \textbf{Optimización:} Ampliar por software los sectores a \textbf{80 MHz} ($\sim 900\text{ Mbps/sector}$, costo Q 0.00) e instalar un segundo enlace \texttt{AF-5XHD} en agregación LACP (costo incremental Q 9,850.00) para llegar a \textbf{1,818 Mbps} en el Backhaul.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\caption{Matriz de validación de escenarios de sensibilidad y decisiones de optimización (Criterio 09).}
+\label{tab:sensibilidad}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\textbf{Escenario Evaluado} & \textbf{Parámetro Modificado} & \textbf{Señal Crítica ($P_{rx}$)} & \textbf{Cap. BH / Acceso} & \textbf{Demanda Pico} & \textbf{Efecto y Decisión de Optimización Cuantificada} \\
+\midrule
+Diseño Base Final & $P_{tx}=22\text{ dBm}$, $h_{\text{S1B}}=25\text{ m}$, 60 viv. & $-46.0 / -47.0\text{ dBm}$ & $909 / 1,410\text{ Mbps}$ & $554.4\text{ Mbps}$ & Cumple al $100\%$; operación estable en modulación 10X. \\
+Sensibilidad 1A (Lluvia + PIRE) & Modo \texttt{Auto} ($30\text{ dBm}$) + Lluvia $95\text{ mm/h}$ & $-72.9\text{ dBm}$ (BH) & $360 / 780\text{ Mbps}$ & $554.4\text{ Mbps}$ & Falla en tormenta $\rightarrow$ Fijar $P_{tx}=22\text{ dBm}$ ($M_{10\text{X}}=+8.2\text{ dB}$ con lluvia). \\
+Sensibilidad 1B (Obstrucción) & AP a $10\text{ m}$ y antena estándar en \texttt{S1-B} & $-76.0\text{ dBm}$ (\texttt{S1-B}) & $909 / 188\text{ Mbps}$ & $554.4\text{ Mbps}$ & Difracción $11.4\text{ dB}$ $\rightarrow$ Torre AP a $30\text{ m}$, chasis Ti y mástil a $25\text{ m}$. \\
+Sensibilidad 2 (Crecimiento) & 90 hogares (+50\%) y Plan $50/20\text{ Mbps}$ & $-46.0 / -47.0\text{ dBm}$ & $909 / 1,410\text{ Mbps}$ & $1,663.2\text{ Mbps}$ & Satura BH ($183\%$) $\rightarrow$ Subir APs a $80\text{ MHz}$ + 2do enlace \texttt{AF-5XHD} (Q 9,850). \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% ============================================================================
+% SECCION 9: INFRAESTRUCTURA, BOM Y COSTOS (CAPEX / OPEX)
+% ============================================================================
+\section{Infraestructura, Lista de Materiales (BOM) y Presupuesto CAPEX / OPEX}
+
+El proyecto contempla dos torres arriostradas galvanizadas G30 de $30\text{ m}$ (\texttt{PoP-Escuintla} y \texttt{Tower 1}), sistemas solares/UPS de $48\text{ V}$ con autonomía de 24 horas, puesta a tierra ($<5\,\Omega$), supresores \texttt{ETH-SP-G2}, 56 mástiles domiciliarios de $6\text{--}9\text{ m}$ y 4 mástiles arriostrados de $25\text{ m}$ para la zona noreste (\texttt{S1-B}). Con tipo de cambio $\text{Q } 7.80 = \text{USD } 1.00$, el \textbf{CAPEX total es de Q 335,000.00} (\textbf{Q 5,583.33 por hogar}) y el \textbf{OPEX mensual es de Q 6,900.00/mes} (\textbf{Q 115.00/hogar/mes}, indicador de costo operativo que no equivale automáticamente a una tarifa comercial).
+
+\begin{table}[H]
+\centering
+\caption{Presupuesto valorizado BOM, inversión inicial (CAPEX) y costos operativos (OPEX) en Quetzales.}
+\label{tab:costos}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllcrrll@{}}
+\toprule
+\textbf{Rubro} & \textbf{Elemento y Modelo Exacto} & \textbf{Función en el Sistema} & \textbf{Cant.} & \textbf{P. Unit. (Q)} & \textbf{Subtotal (Q)} & \textbf{Fuente Cotización} & \textbf{Categoría} \\
+\midrule
+Backhaul PtP & Radio \texttt{AF-5XHD} + Plato \texttt{AF-5G30-S45} ($30\text{ dBi}$) & Enlace troncal $11.94\text{ km}$ (Tx y Rx) & 2 kits & 5,694.00 & 11,388.00 & Ubiquiti / Comtech GT & CAPEX \\
+Base PtMP & Radio \texttt{LTU-Rocket} + Sectorial \texttt{AM-V5G-Ti} & 3 sectores $120^\circ$ ($360^\circ$) en \texttt{Tower 1} & 3 kits & 5,616.00 & 16,848.00 & Ubiquiti / Intcomex GT & CAPEX \\
+Conmutación & Router \texttt{EdgePoint EP-R8} + Switch \texttt{ES-8-150W} & Ruteo y PoE en PoP y \texttt{Tower 1} & 2 & 3,276.00 & 6,552.00 & Ubiquiti / Comtech GT & CAPEX \\
+CPE Corto/Med. & Estación receptora panel \texttt{Ubiquiti LTU-Pro} ($24\text{ dBi}$) & 36 viviendas cercanas ($\le 1.3\text{ km}$) & 36 & 1,560.00 & 56,160.00 & Ubiquiti / Intcomex GT & CAPEX \\
+CPE Borde & Estación reflectora \texttt{Ubiquiti LTU-LR} ($26\text{ dBi}$) & 24 viviendas lejanas ($1.3\text{--}2.3\text{ km}$) & 24 & 1,794.00 & 43,056.00 & Ubiquiti / Intcomex GT & CAPEX \\
+Wi-Fi Hogar & Router interior \texttt{Ubiquiti airCube ISP (ACB-ISP)} & Cobertura interior $2.4\text{ GHz}$ + PoE & 60 & 429.00 & 25,740.00 & Ubiquiti / Intcomex GT & CAPEX \\
+Torres y Mástiles & 2 Torres G30 ($30\text{ m}$), 4 mástiles ($25\text{ m}$), 56 mástiles casa & Soporte estructural en PoP, aldea y casas & Global & -- & 99,000.00 & Estructuras RF / EPA GT & CAPEX \\
+Cable y Energía & 8 bobinas Cat6 STP, 72 \texttt{ETH-SP-G2}, 2 kits Solar/UPS $48\text{ V}$ & Cableado blindado, protección y respaldo 24 h & Global & -- & 44,080.00 & Intcomex / Soluciones GT & CAPEX \\
+Mano de Obra & Instalación de 2 torres, 60 hogares e imprevistos ($8\%$) & Montaje, alineación RF y puesta en marcha & 1 & 32,176.00 & 32,176.00 & Cuadrilla WISP GT & CAPEX \\
+\midrule
+\multicolumn{5}{@{}l}{\textbf{TOTAL INVERSIÓN DE CAPITAL (CAPEX TOTAL -- 60 VIVIENDAS / 300 HABITANTES)}} & \textbf{Q 335,000.00} & \textbf{Q 5,583.33 / hogar} & \textbf{CAPEX} \\
+\midrule
+OPEX Mensual & Fibra $600\text{ Mbps}$ (Q 4,200), Sitios (Q 1,200), Energía (Q 380), Mant. (Q 1,120) & Operación y mantenimiento mensual de la red & 1/mes & 6,900.00 & \textbf{Q 6,900.00} & Carrier / EEGSA / WISP & \textbf{Q 115/hogar/mes} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+% ============================================================================
+% SECCION 10: LIMITACIONES, CONCLUSIONES Y BIBLIOGRAFIA
+% ============================================================================
+\section{Limitaciones, Conclusiones y Bibliografía}
+
+\textbf{Limitaciones y mitigación de riesgos:} (1) Dado que \textit{UISP Design Center} emplea topografía SRTM sin cobertura láser LiDAR en zonas rurales de Guatemala, se mitiga el riesgo de follaje mediante márgenes verticales de $15\text{ m}$ en el \textit{Backhaul} y mástiles de $10\text{ a }25\text{ m}$ en las viviendas; (2) ante el uso compartido de la banda de $5\text{ GHz}$, el blindaje trasero de $30\text{ dB}$ de las antenas \texttt{Titanium} y la alta directividad de los CPEs aseguran inmunidad frente a ruido futuro; y (3) los protectores \texttt{ETH-SP-G2} y tierras físicas protegen contra descargas atmosféricas en la Costa Sur.
+
+\textbf{Conclusiones:}
+\begin{enumerate}
+    \item La arquitectura híbrida PtP ($11.94\text{ km}$ en $5.2\text{ GHz}$) + PtMP trisectorial ($360^\circ$ en $5.8\text{ GHz}$) conecta el $100\%$ de las 60 viviendas (300 habitantes) de la Aldea El Milagro con despejes de Fresnel del $235\%$ al $514\%$ y plena compatibilidad con la TNAF de la SIT.
+    \item El uso de arreglos colineales verticales $N=12$ (\texttt{AM-V5G-Ti}, $\text{HPBW}_V = 4.0^\circ$) y la combinación escalonada de CPEs (\texttt{LTU-Pro} de $24\text{ dBi}$ y reflectores \texttt{LTU-LR} de $26\text{ dBi}$) ecualizan las señales recibidas entre $-41\text{ y }-47\text{ dBm}$, garantizando márgenes de $+13.1\text{ a }+20.1\text{ dB}$ sobre la modulación máxima $1024\text{-QAM}$ ($10\text{X}$).
+    \item El sistema entrega $909\text{ Mbps}$ en el transporte y $1,410\text{ Mbps}$ en el acceso frente a una demanda pico de $554.4\text{ Mbps}$, con una inversión inicial de \textbf{Q 5,583.33/hogar} y un costo operativo sostenible de \textbf{Q 115.00/hogar/mes}.
+\end{enumerate}
+
+\newpage
+
+\begin{thebibliography}{9}
+\footnotesize
+
+\setlength{\itemsep}{1pt}
+
+\bibitem{balanis} C. A. Balanis, \textit{Antenna Theory: Analysis and Design}, 4th ed. Hoboken, NJ: Wiley, 2016.
+\bibitem{stutzman} W. L. Stutzman and G. A. Thiele, \textit{Antenna Theory and Design}, 3rd ed. Hoboken, NJ: Wiley, 2012.
+\bibitem{cardama} A. Cardama \textit{et al.}, \textit{Antenas}, 2da ed. Barcelona: Ediciones UPC, 2002.
+\bibitem{tnaf} Superintendencia de Telecomunicaciones (SIT), \textit{Tabla Nacional de Atribución de Frecuencias (TNAF)}, Res. SIT-DSI-622-2020, Guatemala, 2020.
+\bibitem{uit} UIT-R, \textit{Recomendaciones UIT-R P.530-18 y P.838-3: Diseño de enlaces terrenales con visibilidad directa y atenuación por lluvia}, Ginebra, 2021.
+\bibitem{ubnt} Ubiquiti Inc., \textit{Datasheets oficiales: airFiber X Antenna (AF-5G30-S45), airMAX Titanium Sector (AM-V5G-Ti), LTU-Pro y LTU-LR}, San Jose, CA, 2016--2023.
+\end{thebibliography}
+
+\end{document}
