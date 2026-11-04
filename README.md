@@ -92,8 +92,8 @@ Proyecto-Final-Antenas-UNIS-2026/
  ┃ ┣ airMAX_Ti_Sector_DS.pdf                               # Ficha técnica sectorial AM-V5G-Ti (19 dBi 120°)
  ┃ ┣ ltu-pro.pdf                                           # Ficha técnica CPE panel LTU-Pro (24 dBi)
  ┃ ┣ ltu-lr_ds.pdf                                         # Ficha técnica CPE reflector LTU-LR (26 dBi)
- ┃ ┣ fig_datasheet_af5g30.png                     # Recorte polar oficial AF-5G30-S45 (Pág. 9)
- ┃ ┗ fig_datasheet_amv5gti.png                    # Recorte polar oficial AM-V5G-Ti (Pág. 9)
- ┣ 📂 06_Presentacion_Defensa/
- ┃ ┗ 📊 Presentacion_Defensa_Antenas_UNIS2026.pdf    # Diapositivas para la defensa técnica (Entregable 7)
- ┗ 📜 README.md                                      # Documentación general del repositorio
+ ┃ ┣ fig_datasheet_af5g30.png                              # Recorte polar oficial AF-5G30-S45 (Pág. 9)
+ ┃ ┗ fig_datasheet_amv5gti.png                             # Recorte polar oficial AM-V5G-Ti (Pág. 9)
+ ┣ 06_Presentacion_Defensa/
+ ┃ ┗ Presentacion_Defensa_Antenas_UNIS2026.pdf             # Diapositivas para la defensa técnica (Entregable 7)
+ ┗ README.md                                               # Documentación general del repositorio
