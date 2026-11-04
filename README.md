@@ -1,0 +1,2 @@
+# DisenoSistemaAntenas_ConectividadInalmbricaRural_AldeaElMilagro
+Diseño integral, modelado electromagnético, simulación topográfica y evaluación financiera de un sistema de Acceso Fijo Inalámbrico (Fixed Wireless Access, FWA) para conectar a la Aldea El Milagro (Sector Rural Cuyuta Norte), municipio de Masagua, departamento de Escuintla, Guatemala, atendiendo una población de referencia de 300 habitantes
