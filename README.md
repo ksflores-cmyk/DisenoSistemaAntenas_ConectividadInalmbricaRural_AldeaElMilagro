@@ -72,7 +72,8 @@ El sistema conecta al **100 % de las 60 viviendas (300 habitantes)** de la **Ald
 Proyecto-Final-Antenas-UNIS-2026/
  ┣ 01_Informe_LaTeX/
  ┃ ┣ main.tex                                              # Código fuente completo en LaTeX (Overleaf)
- ┃ ┗ Informe_Final_Antenas_El_Milagro_UNIS.pdf             # Informe Técnico Final compilado (Entregable 1)  
+ ┃ ┣ Informe_Final_Antenas_El_Milagro_UNIS.pdf             # Informe Técnico Final compilado (Entregable 1)
+ ┃ ┗ escudo.png                                            # Escudo oficial UNIS para la portada 
  ┣ 02_Memoria_Calculos_Excel/
  ┃ ┗ Memoria_Calculos_Antenas_El_Milagro_UNIS2026.xlsx     # 6 Tablas Maestras con fórmulas vivas (Entregables 2 y 6)
  ┣ 03_Simulacion_GNU_Octave/
@@ -83,6 +84,7 @@ Proyecto-Final-Antenas-UNIS-2026/
  ┃ ┗ fig_octave_cobertura_azimutal_360.png                 # Diagrama polar de cobertura 360° y ubicación de CPEs
  ┣ 04_Capturas_UISP_y_Cartografia/
  ┃ ┣ Red_FWA_Aldea_El_Milagro.kml                          # Archivo cartográfico para Google Earth Pro (Entregable 5)
+ ┃ ┣ mapa_cartografico_google_earth.png                    # Mapa general en Google Earth
  ┃ ┣ fig_mapa_general_red.png                              # Mapa general Backhaul 11.94 km + Cobertura 360°
  ┃ ┣ fig_mapa_sectores_aldea.png                           # Jerarquía de dispositivos en Tower 1
  ┃ ┣ fig_perfil_backhaul_ptp.png                           # Perfil topográfico y Fresnel del Backhaul PtP
