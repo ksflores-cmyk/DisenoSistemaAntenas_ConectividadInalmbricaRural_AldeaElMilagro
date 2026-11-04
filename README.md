@@ -71,29 +71,29 @@ El sistema conecta al **100 % de las 60 viviendas (300 habitantes)** de la **Ald
 ```text
 Proyecto-Final-Antenas-UNIS-2026/
  ┣ 01_Informe_LaTeX/
- ┃ ┣ main.tex                                     # Código fuente completo en LaTeX (Overleaf)
- ┃ ┗ Informe_Final_Antenas_El_Milagro_UNIS.pdf    # Informe Técnico Final compilado (Entregable 1)  
+ ┃ ┣ main.tex                                              # Código fuente completo en LaTeX (Overleaf)
+ ┃ ┗ Informe_Final_Antenas_El_Milagro_UNIS.pdf             # Informe Técnico Final compilado (Entregable 1)  
  ┣ 02_Memoria_Calculos_Excel/
- ┃ ┗ Memoria_Calculos_Antenas_El_Milagro_UNIS2026.xlsx # 6 Tablas Maestras con fórmulas vivas (Entregables 2 y 6)
+ ┃ ┗ Memoria_Calculos_Antenas_El_Milagro_UNIS2026.xlsx     # 6 Tablas Maestras con fórmulas vivas (Entregables 2 y 6)
  ┣ 03_Simulacion_GNU_Octave/
- ┃ ┣ generar_patrones_antenas.m                   # Script en GNU Octave/MATLAB para patrones H/V y Factor de Arreglo
- ┃ ┣ fig_octave_cortes_hv_familias.png            # Gráfica de cortes H y V de las 4 familias directivas
- ┃ ┣ fig_octave_factor_arreglo_sectorial.png      # Síntesis del arreglo colineal N=12 (AM-V5G-Ti)
- ┃ ┣ fig_octave_apertura_vs_hpbw.png              # Relación Apertura Efectiva (Ae) vs Ganancia y HPBW
- ┃ ┗ fig_octave_cobertura_azimutal_360.png        # Diagrama polar de cobertura 360° y ubicación de CPEs
+ ┃ ┣ generar_patrones_antenas.m                            # Script en GNU Octave/MATLAB para patrones H/V y Factor de Arreglo
+ ┃ ┣ fig_octave_cortes_hv_familias.png                     # Gráfica de cortes H y V de las 4 familias directivas
+ ┃ ┣ fig_octave_factor_arreglo_sectorial.png               # Síntesis del arreglo colineal N=12 (AM-V5G-Ti)
+ ┃ ┣ fig_octave_apertura_vs_hpbw.png                       # Relación Apertura Efectiva (Ae) vs Ganancia y HPBW
+ ┃ ┗ fig_octave_cobertura_azimutal_360.png                 # Diagrama polar de cobertura 360° y ubicación de CPEs
  ┣ 04_Capturas_UISP_y_Cartografia/
- ┃ ┣ Red_FWA_Aldea_El_Milagro.kml                 # Archivo cartográfico para Google Earth Pro (Entregable 5)
- ┃ ┣ fig_mapa_general_red.png                     # Mapa general Backhaul 11.94 km + Cobertura 360°
- ┃ ┣ fig_resumen_tower1.png                       # Jerarquía de dispositivos en Tower 1
- ┃ ┣ fig_perfil_backhaul_ptp.png                  # Perfil topográfico y Fresnel del Backhaul PtP
- ┃ ┗ fig_perfil_s1a.png ... fig_perfil_s3b.png    # Perfiles de elevación de las 6 estaciones CPE
+ ┃ ┣ Red_FWA_Aldea_El_Milagro.kml                          # Archivo cartográfico para Google Earth Pro (Entregable 5)
+ ┃ ┣ fig_mapa_general_red.png                              # Mapa general Backhaul 11.94 km + Cobertura 360°
+ ┃ ┣ fig_mapa_sectores_aldea.png                           # Jerarquía de dispositivos en Tower 1
+ ┃ ┣ fig_perfil_backhaul_ptp.png                           # Perfil topográfico y Fresnel del Backhaul PtP
+ ┃ ┗ fig_perfil_s1a.png ... fig_perfil_s3b.png             # Perfiles de elevación de las 6 estaciones CPE
  ┣ 05_Datasheets_Oficiales/
- ┃ ┣ airFiber_Antennas_DS.pdf                     # Ficha técnica reflector AF-5G30-S45 (30 dBi)
- ┃ ┣ airMAX_Ti_Sector_DS.pdf                      # Ficha técnica sectorial AM-V5G-Ti (19 dBi 120°)
- ┃ ┣ ltu-pro.pdf                                  # Ficha técnica CPE panel LTU-Pro (24 dBi)
- ┃ ┣ ltu-lr_ds.pdf                                # Ficha técnica CPE reflector LTU-LR (26 dBi)
- ┃ ┣ fig_datasheet_af5g30.png                     # Recorte polar oficial AF-5G30-S45 (Pág. 9)
- ┃ ┗ fig_datasheet_amv5gti.png                    # Recorte polar oficial AM-V5G-Ti (Pág. 9)
- ┣ 📂 06_Presentacion_Defensa/
- ┃ ┗ 📊 Presentacion_Defensa_Antenas_UNIS2026.pdf    # Diapositivas para la defensa técnica (Entregable 7)
- ┗ 📜 README.md                                      # Documentación general del repositorio
+ ┃ ┣ airFiber_Antennas_DS.pdf                              # Ficha técnica reflector AF-5G30-S45 (30 dBi)
+ ┃ ┣ airMAX_Ti_Sector_DS.pdf                               # Ficha técnica sectorial AM-V5G-Ti (19 dBi 120°)
+ ┃ ┣ ltu-pro.pdf                                           # Ficha técnica CPE panel LTU-Pro (24 dBi)
+ ┃ ┣ ltu-lr_ds.pdf                                         # Ficha técnica CPE reflector LTU-LR (26 dBi)
+ ┃ ┣ fig_datasheet_af5g30.png                              # Recorte polar oficial AF-5G30-S45 (Pág. 9)
+ ┃ ┗ fig_datasheet_amv5gti.png                             # Recorte polar oficial AM-V5G-Ti (Pág. 9)
+ ┣ 06_Presentacion_Defensa/
+ ┃ ┗ Presentacion_Defensa_Antenas_UNIS2026.pdf             # Diapositivas para la defensa técnica (Entregable 7)
+ ┗ README.md                                               # Documentación general del repositorio
