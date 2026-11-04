@@ -1,0 +1,89 @@
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Red FWA Aldea El Milagro - Masagua, Escuintla (UNIS 2026)</name>
+  <description>Diseño Integral de Antenas y Propagación para 300 habitantes (60 viviendas). Autores: K. Flores (17068), A. Guzmán (16863), M. Cospín (16846).</description>
+  <Style id="nodoPrincipal">
+    <IconStyle><color>ff0055ff</color><scale>1.3</scale></IconStyle>
+  </Style>
+  <Style id="cpeHogar">
+    <IconStyle><color>ff00ff00</color><scale>1.0</scale></IconStyle>
+  </Style>
+  <Style id="lineaBackhaul">
+    <LineStyle><color>ff00aaff</color><width>4</width></LineStyle>
+  </Style>
+  <Style id="lineaAcceso">
+    <LineStyle><color>ff00ff55</color><width>2</width></LineStyle>
+  </Style>
+
+  <Placemark>
+    <name>PoP-Escuintla (Tx Backhaul 5.2 GHz - 30 m AGL)</name>
+    <description>AF-5XHD + Plato AF-5G30-S45 (30 dBi) | Azimut: 191°S | Tilt: -1.22° | Cota: 430 m s.n.m.</description>
+    <styleUrl>#nodoPrincipal</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.782000,14.322000,30</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>Tower 1 - Aldea El Milagro (Rx Backhaul + 3 APs PtMP - 30 m AGL)</name>
+    <description>Rx Backhaul AF-5G30-S45 + 3 Sectores LTU-Rocket con AM-V5G-Ti (19 dBi 120°: S1=0°N, S2=120°E, S3=240°W)</description>
+    <styleUrl>#nodoPrincipal</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.803970,14.216939,30</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S1-A (LTU-Pro 24 dBi - 10 m AGL)</name>
+    <description>Sector 1 Norte | Distancia: 0.997 km | Señal: -41 dBm | Capacidad: 470 Mbps</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.807000,14.225400,10</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S1-B (LTU-LR 26 dBi - 25 m AGL)</name>
+    <description>Sector 1 Borde NE | Distancia: 2.210 km | Mástil 25 m supera loma intermedia | Señal: -46 dBm</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.795000,14.234800,25</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S2-A (LTU-Pro 24 dBi - 10 m AGL)</name>
+    <description>Sector 2 Este (Enlace más corto) | Distancia: 0.962 km | Señal: -41 dBm</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.795200,14.215400,10</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S2-B (LTU-LR 26 dBi - 12 m AGL - PEOR CASO)</name>
+    <description>Sector 2 Borde SE (Enlace más largo) | Distancia: 2.300 km | Señal: -47 dBm</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.790400,14.201000,12</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S3-A (LTU-Pro 24 dBi - 10 m AGL)</name>
+    <description>Sector 3 Oeste | Distancia: 1.040 km | Señal: -42 dBm</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.813500,14.215800,10</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>CPE S3-B (LTU-LR 26 dBi - 12 m AGL)</name>
+    <description>Sector 3 Borde SW | Distancia: 2.200 km | Señal: -46 dBm</description>
+    <styleUrl>#cpeHogar</styleUrl>
+    <Point><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.819400,14.204000,12</coordinates></Point>
+  </Placemark>
+
+  <Placemark>
+    <name>Enlace Backhaul PtP (11.94 km - 909 Mbps)</name>
+    <styleUrl>#lineaBackhaul</styleUrl>
+    <LineString><altitudeMode>relativeToGround</altitudeMode><coordinates>-90.782000,14.322000,30 -90.803970,14.216939,30</coordinates></LineString>
+  </Placemark>
+
+  <Placemark><name>Enlace S1-A</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.807000,14.225400,10</coordinates></LineString></Placemark>
+  <Placemark><name>Enlace S1-B</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.795000,14.234800,25</coordinates></LineString></Placemark>
+  <Placemark><name>Enlace S2-A</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.795200,14.215400,10</coordinates></LineString></Placemark>
+  <Placemark><name>Enlace S2-B</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.790400,14.201000,12</coordinates></LineString></Placemark>
+  <Placemark><name>Enlace S3-A</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.813500,14.215800,10</coordinates></LineString></Placemark>
+  <Placemark><name>Enlace S3-B</name><styleUrl>#lineaAcceso</styleUrl><LineString><coordinates>-90.803970,14.216939,30 -90.819400,14.204000,12</coordinates></LineString></Placemark>
+</Document>
+</kml>
