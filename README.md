@@ -65,7 +65,7 @@ Puedes abrir, inspeccionar perfiles topográficos, verificar zonas de Fresnel y 
     </td>
     <td align="center" width="50%">
       <b>Cartografía 3D en Google Earth (Archivo KML)</b><br><br>
-      <img src="04_Capturas_UISP_y_Cartografia/mapa_cartografico_google_earth.png" alt="Mapa Cartográfico Google Earth" width="100%"/><br>
+      <img src="04_Capturas_UISP_y_Cartografia/mapa_cartografico_google_earth2.png" alt="Mapa Cartográfico Google Earth" width="100%"/><br>
       <sub>Georreferenciación de sitios, alturas sobre terreno (AGL) y trazado de enlaces exportados en <code>Red_FWA_Aldea_El_Milagro.kml</code>.</sub>
     </td>
   </tr>
