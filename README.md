@@ -72,7 +72,8 @@ El sistema conecta al **100 % de las 60 viviendas (300 habitantes)** de la **Ald
 Proyecto-Final-Antenas-UNIS-2026/
  ┣ 01_Informe_LaTeX/
  ┃ ┣ main.tex                                              # Código fuente completo en LaTeX (Overleaf)
- ┃ ┗ Informe_Final_Antenas_El_Milagro_UNIS.pdf             # Informe Técnico Final compilado (Entregable 1)  
+ ┃ ┣ Informe_Final_Antenas_El_Milagro_UNIS.pdf             # Informe Técnico Final compilado (Entregable 1)
+ ┃ ┗ escudo.png                                            # Escudo oficial UNIS para la portada 
  ┣ 02_Memoria_Calculos_Excel/
  ┃ ┗ Memoria_Calculos_Antenas_El_Milagro_UNIS2026.xlsx     # 6 Tablas Maestras con fórmulas vivas (Entregables 2 y 6)
  ┣ 03_Simulacion_GNU_Octave/
