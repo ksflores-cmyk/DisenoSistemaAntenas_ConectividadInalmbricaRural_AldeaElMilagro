@@ -65,7 +65,7 @@ Puedes abrir, inspeccionar perfiles topográficos, verificar zonas de Fresnel y 
     </td>
     <td align="center" width="50%">
       <b>Cartografía 3D en Google Earth (Archivo KML)</b><br><br>
-      <img src="04_Capturas_UISP_y_Cartografia/mapa_cartografico_google_earth.png" alt="Mapa Cartográfico Google Earth" width="100%"/><br>
+      <img src="04_Capturas_UISP_y_Cartografia/mapa_cartografico_google_earth2.png" alt="Mapa Cartográfico Google Earth" width="100%"/><br>
       <sub>Georreferenciación de sitios, alturas sobre terreno (AGL) y trazado de enlaces exportados en <code>Red_FWA_Aldea_El_Milagro.kml</code>.</sub>
     </td>
   </tr>
@@ -230,6 +230,7 @@ Proyecto-Final-Antenas-UNIS-2026/
  ┣ 04_Capturas_UISP_y_Cartografia/
  ┃ ┣ Red_FWA_Aldea_El_Milagro.kml                          # Archivo cartográfico para Google Earth Pro (Entregable 5)
  ┃ ┣ mapa_cartografico_google_earth.png                    # Mapa general en Google Earth
+ ┃ ┣ mapa_cartografico_google_earth2.png                   # Mapa general en Google Earth distinto angulo
  ┃ ┣ fig_mapa_general_red.png                              # Mapa general Backhaul 11.94 km + Cobertura 360°
  ┃ ┣ fig_mapa_sectores_aldea.png                           # Jerarquía de dispositivos en Tower 1
  ┃ ┣ fig_perfil_backhaul_ptp.png                           # Perfil topográfico y Fresnel del Backhaul PtP
